@@ -138,10 +138,6 @@ public class MidiSequencer : MonoBehaviour
     private static List<Note> ParseMidiCsv(string text, float tempo)
     {
         List<MidiEvent> events = text.Split('\n').Select(x => x.Trim()).Where(x => x.Count() > 0).Select(line => new MidiEvent(line)).ToList();
-        foreach (var e in events)
-        {
-            print(e.EventName);
-        }
         int stepsPerQuarter = events.Find(e => e.EventName == "Header").Args[2];
         float stepsPerSec = stepsPerQuarter * tempo / 60.0f;
         List<Note> result = new List<Note>();
