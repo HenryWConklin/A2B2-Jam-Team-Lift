@@ -28,13 +28,12 @@ public class MidiSequencer : MonoBehaviour
         NoteEvents = ParseMidiCsv(MidiCsv.text, TempoBpm);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Playing)
         {
             JustActiveNotes.Clear();
-            SequenceTime += Time.deltaTime;
+            SequenceTime += Time.fixedDeltaTime;
             while (NextEvent < NoteEvents.Count && NoteEvents[NextEvent].Timestamp <= SequenceTime)
             {
                 var note = NoteEvents[NextEvent];
