@@ -1,1 +1,0 @@
-Use midicsv from https://www.fourmilab.ch/webtools/midicsv/ to convert midi files to a CSV format that Scripts/MidiSequencer.cs can read
