@@ -490,6 +490,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3417908562122307142, guid: 860eaa6a1e147df478e01a293c4ade49, type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3417908562122307144, guid: 860eaa6a1e147df478e01a293c4ade49, type: 3}
       propertyPath: m_Name
       value: SShape
@@ -521,6 +525,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 607182302736610813, guid: 382391dc923d3c9478550036ac07559c, type: 3}
       propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 607182302736610813, guid: 382391dc923d3c9478550036ac07559c, type: 3}
+      propertyPath: m_UseFullKinematicContacts
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 607182302736610815, guid: 382391dc923d3c9478550036ac07559c, type: 3}
@@ -578,6 +586,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4550184444963704769, guid: f7d1ac481c5f8704d94b69b0bbb488ce, type: 3}
       propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550184444963704769, guid: f7d1ac481c5f8704d94b69b0bbb488ce, type: 3}
+      propertyPath: m_UseFullKinematicContacts
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4550184444963704771, guid: f7d1ac481c5f8704d94b69b0bbb488ce, type: 3}
