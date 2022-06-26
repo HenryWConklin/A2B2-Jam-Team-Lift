@@ -8,8 +8,9 @@ public class PlayerBase : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public ShootHandler shootHandler;
-    public Camera gameCam; 
-    public int health = 3;
+    public Camera gameCam;
+    public int maxHealth = 3;
+    public int health;
     public bool isDead;
     public bool invulFramesActive;
 
@@ -17,12 +18,14 @@ public class PlayerBase : MonoBehaviour
     private Material startMaterial;
     public Material flashMaterial;
     public GameObject explosionParticle;
-    
+
     [Header("Sound Settings")]
     public AudioSource deathLaughAudioSource;
     public AudioSource engineAudioSource;
     public AudioSource corruptBoomAudioSource;
-    
+    public float maxGlitchIntensity = 0.3f;
+
+    private GlitchShader glitchShader;
 
 
     private void Start()
@@ -32,8 +35,9 @@ public class PlayerBase : MonoBehaviour
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         gameCam = Camera.main;
         startMaterial = spriteRenderer.material;
-        health = 3; 
-        
+        health = maxHealth;
+        glitchShader = gameCam.GetComponent<GlitchShader>();
+
     }
 
 
@@ -41,8 +45,9 @@ public class PlayerBase : MonoBehaviour
     {
         if (invulFramesActive || health <= 0)
             return;
-        
+
         health -= 1;
+        glitchShader.intensity = (1.0f - ((float)health / maxHealth)) * maxGlitchIntensity;
         StartCoroutine(InvulFrameTimer());
         if (health <= 0)
         {
@@ -59,7 +64,7 @@ public class PlayerBase : MonoBehaviour
         spriteRenderer.material = startMaterial;
         invulFramesActive = false;
     }
-    
+
     private void Die()
     {
         isDead = true;
@@ -72,15 +77,15 @@ public class PlayerBase : MonoBehaviour
     {
         float elapsedTime = 0f;
         float timeToWait = 1f;
-        
-        
+
+
         corruptBoomAudioSource.Play();
         Instantiate(explosionParticle, transform.position, quaternion.identity);
 
         while (elapsedTime <= timeToWait)
         {
-            elapsedTime += Time.deltaTime; 
-            GameManager.Instance.currentSong.volume = Mathf.Lerp(1,0, (elapsedTime / timeToWait)) ;
+            elapsedTime += Time.deltaTime;
+            GameManager.Instance.currentSong.volume = Mathf.Lerp(1, 0, (elapsedTime / timeToWait));
             yield return null;
 
         }
@@ -89,14 +94,14 @@ public class PlayerBase : MonoBehaviour
         elapsedTime = 0f;
         while (elapsedTime <= timeToWait)
         {
-            elapsedTime += Time.deltaTime; 
-            GameManager.Instance.currentSong.volume = Mathf.Lerp(0,1, (elapsedTime / timeToWait)) ;
+            elapsedTime += Time.deltaTime;
+            GameManager.Instance.currentSong.volume = Mathf.Lerp(0, 1, (elapsedTime / timeToWait));
             yield return null;
 
         }
         deathLaughAudioSource.Play();
         UIManager.Instance.DisplayGameOverScreen();
-        
+
     }
 
 }
