@@ -12,24 +12,13 @@ public class SR_TetronimoGrid : MonoBehaviour
     public GameObject blockPrefab;
     public GameObject lockedBlock;
 
-    private bool corruptionStarted = false;
-
     void Start()
     {
         if (Instance == null)
             Instance = this;
-
-        //StartCoroutine(FillGrid());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C) && !corruptionStarted)
-        {
-            StartCoroutine(CorruptGrid());
-        }
-    }
-
+    ///<summary>Checks if row is filled with locked blocks.</summary>
     public void CheckRow(int rowNumber)
     {
         int blockCount = 0;
@@ -47,34 +36,36 @@ public class SR_TetronimoGrid : MonoBehaviour
         }
     }
 
-    public void CheckGrid()
+    ///<summary>Checks how many lines have locked blocks in them and then returns the number.</summary>
+    public int CheckGridLines()
     {
+        int linesWithElements = 0;
+
         for (int i = 0; i < rows.Count; i++)
         {
-            int rowCounter = 0;
-
             List<Transform> rowElements = rows[i].GetComponentsInChildren<Transform>().ToList();
 
             for (int j = 0; j < rowElements.Count; j++)
             {
-                if (rowElements[j].GetComponentInChildren<SR_TetronimoBlock>())
-                    rowCounter++;
-
-                if (rowCounter >= rowElements.Count)
-                    Debug.Log("ROW IS FULL");
+                if (rowElements[j].GetComponentInChildren<SR_LockedBlock>())
+                {
+                    linesWithElements++;
+                    break;
+                }    
             }
         }
+
+        return linesWithElements;
     }
-
-    IEnumerator CorruptGrid()
+    
+    ///<summary>Corrupts the grid up to a certain line. Needs a line number as a parameter.</summary>
+    public void CorruptGrid(int upToLine)
     {
-        corruptionStarted = true;
-
-        for (int i = 0; i < rows.Count; i++)
+        for (int i = 0; i < upToLine; i++)
         {
-            Transform[] rowElements = rows[i].GetComponentsInChildren<Transform>();
+            List<Transform> rowElements = rows[i].GetComponentsInChildren<Transform>().ToList();
 
-            for (int j = 0; j < rowElements.Length; j++)
+            for (int j = 1; j < rowElements.Count; j++)
             {
                 int chance = Random.Range(0, 2);
 
@@ -93,25 +84,22 @@ public class SR_TetronimoGrid : MonoBehaviour
                         break;
 
                     case 1:
-                        if (rowElements[j].GetComponentInChildren<SR_LockedBlock>())
+                        if (!rowElements[j].GetComponentInChildren<SR_LockedBlock>())
                         {
-                            continue;
+                            Instantiate(lockedBlock, rowElements[j].position, Quaternion.identity, rowElements[j].transform);
+                            //Debug.Log("Instantied block with index j: [" + j + "] and parent name is [" + rowElements[j].gameObject.name + "]");
                         }
                         else
                         {
-                            Instantiate(lockedBlock, rowElements[j].position, Quaternion.identity, rowElements[j]);
+                            continue;
                         }
                         break;
 
                     default:
                         break;
                 }
-
-                yield return new WaitForSeconds(0.1f);
             }
         }
-
-        corruptionStarted = false;
     }
 
     IEnumerator FillGrid()
