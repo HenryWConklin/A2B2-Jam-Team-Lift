@@ -18,6 +18,16 @@ public class SR_TetronimoGrid : MonoBehaviour
             Instance = this;
     }
 
+    private void Update()
+    {
+        /*
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CorruptGrid(CheckGridLines());
+        }
+        */
+    }
+
     ///<summary>Checks if row is filled with locked blocks.</summary>
     public void CheckRow(int rowNumber)
     {
