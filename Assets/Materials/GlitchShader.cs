@@ -8,11 +8,14 @@ public class GlitchShader : MonoBehaviour
     public float seed = 1.0f;
     public float glitchAlpha = 1.0f;
     public Vector2 cellSize = new Vector2(0.1f, 0.1f);
+    public float scramblePeriod = 0.5f;
+    public Texture fontTexture;
     public Material material;
 
     void Start()
     {
-        InvokeRepeating("RandomizeSeed", 0.0f, .5f);
+        material.SetTexture("_FontTex", fontTexture);
+        InvokeRepeating("RandomizeSeed", 0.0f, scramblePeriod);
     }
     void RandomizeSeed()
     {
