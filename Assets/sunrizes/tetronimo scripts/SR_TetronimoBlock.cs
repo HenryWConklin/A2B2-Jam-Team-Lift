@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SR_TetronimoBlock : MonoBehaviour
 {
+    public int unitMove;
+
     private Rigidbody2D rb;
 
     private void Start()
@@ -18,7 +20,7 @@ public class SR_TetronimoBlock : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            rb.MovePosition(new Vector2(transform.position.x, transform.position.y - 1));
+            rb.MovePosition(new Vector2(transform.position.x, transform.position.y - unitMove));
         }
     }    
 }
