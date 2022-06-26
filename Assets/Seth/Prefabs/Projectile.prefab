@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   travelDirection: {x: 0, y: 0}
-  velocity: 20
+  velocity: 60
   projectileHitParticle: {fileID: 2616787183833712150, guid: 364a9c3b68ed74244bf10c352622f2c4, type: 3}
 --- !u!61 &281439954598373424
 BoxCollider2D:

@@ -74,4 +74,16 @@ public class Debris : MonoBehaviour, IDamagable
         Destroy(newParticle, 2f);
         Destroy(this.gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            var player = col.gameObject.GetComponent<PlayerBase>();
+            if (player.isDead)
+                return;
+            player.TakeDamage();
+            Explode();
+        }
+    }
 }

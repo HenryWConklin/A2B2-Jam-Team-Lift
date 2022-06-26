@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public int songIndex; 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        gameStarted = true;
         songIndex = UnityEngine.Random.Range(0, gameSongs.Length);
         currentSong.clip = gameSongs[songIndex];
         glitchedSong.clip = glitchedGameSongs[songIndex];
@@ -44,6 +45,16 @@ public class GameManager : MonoBehaviour
         currentSong.Play();
         glitchedSong.Play();
 
+    }
+
+    public void EndGame()
+    {
+        
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
 }

@@ -16,6 +16,11 @@ public class DebrisSpawner : MonoBehaviour
     {
         InitializeSpawnPositions();
         player = GameObject.FindObjectOfType<PlayerBase>();
+        
+    }
+
+    private void Start()
+    {
         StartCoroutine(SpawnDebris_Co());
     }
 
@@ -28,8 +33,16 @@ public class DebrisSpawner : MonoBehaviour
     {
         while (spawnDebris)
         {
+            while (!GameManager.Instance.gameStarted)
+                yield return null;
+
             SpawnDebris();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f); 
+            
+
+            yield return null;
+
+
         }
     }
 

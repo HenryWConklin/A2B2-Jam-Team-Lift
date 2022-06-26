@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance; 
     public GameObject mainMenuObj;
+    public GameObject gameOverObj;
 
 
     private void Awake()
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
         else
             Instance = this;
         mainMenuObj = transform.Find("MainMenu").gameObject;
+        gameOverObj = transform.Find("GameOver").gameObject;
     }
 
     public void StartButton_Pressed()
@@ -26,5 +28,11 @@ public class UIManager : MonoBehaviour
         mainMenuObj.SetActive(false);
         GameManager.Instance.StartGame();
         
+    }
+
+
+    public void DisplayGameOverScreen()
+    {
+        gameOverObj.SetActive(true);
     }
 }
