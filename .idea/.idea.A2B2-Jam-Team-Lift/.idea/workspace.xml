@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5858b1b8-9974-42e5-a450-d88c63046d88" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Seth/Imports/Font/PressStart2P-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Imports/Font/PressStart2P-Regular SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Seth/Scenes/PlayZone.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Scenes/PlayZone.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/QuitGameButton.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Animations/UI/QuitGameButton.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/QuitGameButton.controller.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Animations/UI/QuitGameButton.controller.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/StartGameButton.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Animations/UI/StartGameButton.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/StartGameButton.controller.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Animations/UI/StartGameButton.controller.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/Title.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Animations/UI/Title.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/Title.anim.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Seth/Animations/UI/Title.anim.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/TitleScreen.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Seth/Animations/UI/TitleScreen.controller.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +17,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Seth/Scripts/Player/FXHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Seth/Scripts/World/Debris.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Seth/Scripts/World/DebrisSpawner.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Seth/Sounds/Explosions/ExplosionSFX.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/sunrizes/tetronimo scripts/SR_TetronimoGrid.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -28,6 +37,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
     "rider.run.widget.enabled.cache": "false",
     "vue.rearranger.settings.migration": "true"
   }
@@ -71,6 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1656183005050</updated>
       <workItem from="1656183028801" duration="8472000" />
+      <workItem from="1656196299421" duration="11331000" />
     </task>
     <servers />
   </component>
