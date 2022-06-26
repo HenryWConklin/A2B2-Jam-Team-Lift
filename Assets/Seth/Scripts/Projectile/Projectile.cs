@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     public Vector2 travelDirection;
-    public float velocity; 
+    public float velocity;
+    private bool passed;
+    public GameObject projectileHitParticle;
 
     public void Init(Vector3 _travelDirection)
     {
@@ -26,5 +29,29 @@ public class Projectile : MonoBehaviour
         float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if(n < 0 ) n+= 360;
         return n;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        
+        if (col.CompareTag("Damagable") && !passed )
+        {
+            passed = true;
+            Debug.Log("Hit something, dealing damage");
+            col.GetComponent<IDamagable>().Damage(5f);
+
+            GameObject newParticle = Instantiate(projectileHitParticle, transform.position, quaternion.identity);
+            Destroy(newParticle, 2f);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Damagable"))
+        {
+            Debug.Log("Hit something, dealing damage");
+            other.GetComponent<IDamagable>().Damage(5f);
+        }
     }
 }
