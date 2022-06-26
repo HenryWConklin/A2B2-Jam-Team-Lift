@@ -9,9 +9,10 @@ public class SR_TetronimoGrid : MonoBehaviour
 
     public List<GameObject> rows = new List<GameObject>();
 
-    private bool[,] gridLayout = new bool[10, 8];
-
     public GameObject blockPrefab;
+    public GameObject lockedBlock;
+
+    private bool corruptionStarted = false;
 
     void Start()
     {
@@ -21,9 +22,29 @@ public class SR_TetronimoGrid : MonoBehaviour
         //StartCoroutine(FillGrid());
     }
 
-    public void PutBlockInGrid(GameObject block)
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C) && !corruptionStarted)
+        {
+            StartCoroutine(CorruptGrid());
+        }
+    }
 
+    public void CheckRow(int rowNumber)
+    {
+        int blockCount = 0;
+
+        GameObject rowToCheck = rows[rowNumber];
+        Transform[] rowElements = rowToCheck.GetComponentsInChildren<Transform>();
+
+        foreach (Transform t in rowElements)
+        {
+            if (t.GetComponentInChildren<SR_LockedBlock>())
+                blockCount++;
+
+            if (blockCount >= rowElements.Length)
+                Debug.Log("ROW IS FULL");
+        }
     }
 
     public void CheckGrid()
@@ -45,6 +66,54 @@ public class SR_TetronimoGrid : MonoBehaviour
         }
     }
 
+    IEnumerator CorruptGrid()
+    {
+        corruptionStarted = true;
+
+        for (int i = 0; i < rows.Count; i++)
+        {
+            Transform[] rowElements = rows[i].GetComponentsInChildren<Transform>();
+
+            for (int j = 0; j < rowElements.Length; j++)
+            {
+                int chance = Random.Range(0, 2);
+
+                switch (chance)
+                {
+                    case 0:
+                        if (rowElements[j].GetComponentInChildren<SR_LockedBlock>())
+                        {
+                            rowElements[j].GetComponentInChildren<SR_LockedBlock>().DestroyBlock();
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                        break;
+
+                    case 1:
+                        if (rowElements[j].GetComponentInChildren<SR_LockedBlock>())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            Instantiate(lockedBlock, rowElements[j].position, Quaternion.identity, rowElements[j]);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        corruptionStarted = false;
+    }
+
     IEnumerator FillGrid()
     {
         for (int i = 0; i < rows.Count; i++)
@@ -54,8 +123,6 @@ public class SR_TetronimoGrid : MonoBehaviour
             for (int j = 0; j < rowElements.Count; j++)
             {
                 GameObject block = Instantiate(blockPrefab, rowElements[j].gameObject.transform.position, Quaternion.identity);
-                gridLayout[i, j] = true;
-                Debug.Log("Grid bool at x:" + i + ", y:" + j + " is " + gridLayout[i, j]);
                 block.GetComponent<SpriteRenderer>().color = Random.ColorHSV();
                 yield return new WaitForSeconds(0.5f);
                 Debug.Log("Spawned block [" + i + "], [" + j + "]");
