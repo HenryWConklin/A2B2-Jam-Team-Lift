@@ -388,10 +388,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b293acf0d3fa3f4389abb400cf73ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensity: 0.1
+  intensity: 0.5
   seed: 1
-  glitchAlpha: 0.2
-  cellSize: {x: 0.1, y: 0.1}
+  glitchAlpha: 1
+  cellSize: {x: 0.08, y: 0.08}
+  scramblePeriod: 1
+  fontTexture: {fileID: 2800000, guid: c94e34ada5883564bad341a95d20173e, type: 3}
   material: {fileID: 2100000, guid: bfc283be7142c80499f53e49b9725539, type: 2}
 --- !u!1 &652451078
 GameObject:
