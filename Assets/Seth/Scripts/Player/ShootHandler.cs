@@ -16,18 +16,20 @@ public class ShootHandler : MonoBehaviour
     public float cooldownTime = 0.5f; 
     public bool canShoot;
     private IEnumerator Reload_Holder;
-    private WaitForSeconds buffer; 
+    private WaitForSeconds buffer;
+    public AudioSource shootAudioSource;
 
     private void Awake()
     {
         player = GetComponent<PlayerBase>();
         buffer = new WaitForSeconds(cooldownTime);
         exitPoint = transform.Find("ExitPoint");
+        
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && GameManager.Instance.gameStarted && !player.isDead)
         {
             Shoot();
         }
@@ -61,6 +63,7 @@ public class ShootHandler : MonoBehaviour
     private void ShootLogic()
     {
         currentAmmo -= 1;
+        player.shootAudioSource.Play();
         //TODO instantiate bullet shell or maybe some smoke particle FX?
         GameObject newBullet = Instantiate(projectilePrefab, exitPoint.position, quaternion.identity);
         Vector2 shootDir = (player.playerMovement.mousePos - (Vector2)player.transform.position).normalized;

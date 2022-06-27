@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     public AudioClip[] mainMenuThemes;
     public AudioClip[] gameSongs;
     public AudioClip[] glitchedGameSongs;
+    public int currentScore; 
     public int songIndex; 
 
     // Start is called before the first frame update
@@ -26,6 +28,17 @@ public class GameManager : MonoBehaviour
             Instance = this;
 
         SetToMainMenu();
+        currentScore = 0; 
+    }
+
+    private void Update()
+    {
+        if (SR_TetronimoGrid.Instance.CheckGridLines() == 7 && gameStarted)
+        {
+            gameStarted = false;
+            PlayerBase.Instance.Die();
+        }
+        
     }
 
     public void SetToMainMenu()
@@ -50,6 +63,12 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         
+    }
+
+    public void UpdateScore(float newScore)
+    {
+        currentScore += (int)newScore;
+        UIManager.Instance.UpdateScoreUI();
     }
 
     public void ResetGame()

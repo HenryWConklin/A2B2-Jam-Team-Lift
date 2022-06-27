@@ -7,9 +7,10 @@ using UnityEngine;
 public class PlayerBase : MonoBehaviour
 {
     public PlayerMovement playerMovement;
+    public static PlayerBase Instance;
     public ShootHandler shootHandler;
     public Camera gameCam;
-    public int maxHealth = 3;
+    public int maxHealth;
     public int health;
     public bool isDead;
     public bool invulFramesActive;
@@ -23,6 +24,9 @@ public class PlayerBase : MonoBehaviour
     public AudioSource deathLaughAudioSource;
     public AudioSource engineAudioSource;
     public AudioSource corruptBoomAudioSource;
+    public AudioSource explosionAudioSource;
+    public AudioSource hitAudioSource;
+    public AudioSource shootAudioSource;
     public float maxGlitchIntensity = 0.3f;
 
     private GlitchShader glitchShader;
@@ -30,6 +34,14 @@ public class PlayerBase : MonoBehaviour
 
     private void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            Debug.Log("Destroying GameManager");
+            Destroy(this.gameObject);
+        }
+        else
+            Instance = this;
+        
         playerMovement = GetComponent<PlayerMovement>();
         shootHandler = GetComponent<ShootHandler>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
@@ -47,12 +59,17 @@ public class PlayerBase : MonoBehaviour
             return;
 
         health -= 1;
+        hitAudioSource.Play();
+        SR_TetronimoGrid.Instance.CorruptGrid(SR_TetronimoGrid.Instance.CheckGridLines());
         glitchShader.intensity = (1.0f - ((float)health / maxHealth)) * maxGlitchIntensity;
         StartCoroutine(InvulFrameTimer());
         if (health <= 0)
         {
             Die();
         }
+
+        GameManager.Instance.currentSong.volume -= .20f;
+        GameManager.Instance.glitchedSong.volume += 0.20f;  
     }
 
 
@@ -65,9 +82,10 @@ public class PlayerBase : MonoBehaviour
         invulFramesActive = false;
     }
 
-    private void Die()
+    public void Die()
     {
         isDead = true;
+        health = 0;
         Destroy(GetComponent<BoxCollider2D>());
         StartCoroutine(Die_Co());
     }
@@ -80,6 +98,7 @@ public class PlayerBase : MonoBehaviour
 
 
         corruptBoomAudioSource.Play();
+        explosionAudioSource.Play();
         Instantiate(explosionParticle, transform.position, quaternion.identity);
 
         while (elapsedTime <= timeToWait)
@@ -96,6 +115,7 @@ public class PlayerBase : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             GameManager.Instance.currentSong.volume = Mathf.Lerp(0, 1, (elapsedTime / timeToWait));
+            GameManager.Instance.glitchedSong.volume = Mathf.Lerp(0, 1, (elapsedTime / timeToWait));
             yield return null;
 
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,14 @@ using UnityEngine;
 public class SR_LockedBlock : MonoBehaviour
 {
     private bool foundParent = false;
+    private SpriteRenderer spriteRenderer;
+    public Sprite[] baseSprites;
+
+    private void Awake()
+    {
+        spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>(); 
+        spriteRenderer.sprite = baseSprites[UnityEngine.Random.Range(0, baseSprites.Length)];
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

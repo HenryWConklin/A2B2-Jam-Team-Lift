@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c199330eb545a264ca966fd0bd4c9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 1
   velocity: 0.5
   rotationSpeed: 0
   travelDirection: {x: 0, y: 0}

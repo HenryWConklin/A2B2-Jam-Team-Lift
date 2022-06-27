@@ -20,12 +20,13 @@ public class SR_TetronimoGrid : MonoBehaviour
 
     private void Update()
     {
-        /*
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
-            CorruptGrid(CheckGridLines());
+            Debug.Log(CheckGridLines());
+            //CorruptGrid(CheckGridLines());
         }
-        */
+        
     }
 
     ///<summary>Checks if row is filled with locked blocks.</summary>
@@ -96,8 +97,9 @@ public class SR_TetronimoGrid : MonoBehaviour
                     case 1:
                         if (!rowElements[j].GetComponentInChildren<SR_LockedBlock>())
                         {
-                            Instantiate(lockedBlock, rowElements[j].position, Quaternion.identity, rowElements[j].transform);
-                            //Debug.Log("Instantied block with index j: [" + j + "] and parent name is [" + rowElements[j].gameObject.name + "]");
+                            GameObject newLockBlock = Instantiate(lockedBlock, rowElements[j].position, Quaternion.identity, rowElements[j].transform);
+                            newLockBlock.transform.localScale = new Vector3(1, 1, 1);
+                            Debug.Log("Instantied block with index j: [" + j + "] and parent name is [" + rowElements[j].gameObject.name + "]");
                         }
                         else
                         {

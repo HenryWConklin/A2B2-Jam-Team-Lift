@@ -60,6 +60,7 @@ public class Debris : MonoBehaviour, IDamagable
         spriteRenderer.material = normalMaterial;
         if (health <= 0)
         {
+            GameManager.Instance.UpdateScore(100f);
             Explode(); 
         }
     }
@@ -85,5 +86,13 @@ public class Debris : MonoBehaviour, IDamagable
             player.TakeDamage();
             Explode();
         }
+
+        if (col.gameObject.CompareTag("tetroblock"))
+        {
+            col.gameObject.GetComponent<IDamagable>().Damage(1f);
+            Explode();
+        }
+
+        if (col.gameObject.CompareTag("lockedBlock")) Explode();
     }
 }

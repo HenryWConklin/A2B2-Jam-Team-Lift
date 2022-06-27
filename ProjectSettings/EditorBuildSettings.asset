@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Seth/Scenes/IntroCutscene.unity
+    guid: 11f8a93e3da136f44949d31787cb6065
+  - enabled: 1
     path: Assets/Seth/Scenes/PlayZone.unity
     guid: 016a3d57418119d43914306a5366b959
   m_configObjects: {}

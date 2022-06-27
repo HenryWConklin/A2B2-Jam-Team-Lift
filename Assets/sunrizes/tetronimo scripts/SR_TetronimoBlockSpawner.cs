@@ -9,11 +9,15 @@ public class SR_TetronimoBlockSpawner : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("SpawnBlock", 0f, 3f);
+        InvokeRepeating("SpawnBlock", 0f, 1f);
     }
 
     private void SpawnBlock()
     {
+        if (!GameManager.Instance.gameStarted)
+        {
+            return;
+        }
         int randomPosition = Random.Range(0, spawnPositions.Count);
         GameObject tempBlock = Instantiate(block, spawnPositions[randomPosition].position, Quaternion.identity);
     }

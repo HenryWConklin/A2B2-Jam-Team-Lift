@@ -32,10 +32,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        
         if (player.health <= 0)
             return;
         
         currentInputVector = Vector2.SmoothDamp(currentInputVector, movement, ref smoothInputVelocity, smoothInputSpeed);
+        if (!GameManager.Instance.gameStarted)
+            return;
         rb.MovePosition(rb.position + currentInputVector * moveSpeed * Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;

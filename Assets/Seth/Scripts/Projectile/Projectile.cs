@@ -34,12 +34,18 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         
-        if (col.CompareTag("Damagable") && !passed )
+        if (col.CompareTag("Damagable") || col.CompareTag("tetroblock") && !passed )
         {
             passed = true;
             Debug.Log("Hit something, dealing damage");
-            col.GetComponent<IDamagable>().Damage(5f);
+            col.GetComponent<IDamagable>().Damage(1f);
 
+            GameObject newParticle = Instantiate(projectileHitParticle, transform.position, quaternion.identity);
+            Destroy(newParticle, 2f);
+            Destroy(gameObject);
+        }
+        if (col.CompareTag("lockedBlock"))
+        {
             GameObject newParticle = Instantiate(projectileHitParticle, transform.position, quaternion.identity);
             Destroy(newParticle, 2f);
             Destroy(gameObject);
@@ -51,7 +57,9 @@ public class Projectile : MonoBehaviour
         if (other.CompareTag("Damagable"))
         {
             Debug.Log("Hit something, dealing damage");
-            other.GetComponent<IDamagable>().Damage(5f);
+            other.GetComponent<IDamagable>().Damage(1f);
         }
+
+
     }
 }

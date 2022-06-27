@@ -37,7 +37,7 @@ public class DebrisSpawner : MonoBehaviour
                 yield return null;
 
             SpawnDebris();
-            yield return new WaitForSeconds(1f); 
+            yield return new WaitForSeconds(0.5f); 
             
 
             yield return null;
